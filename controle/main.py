@@ -18,7 +18,7 @@ from  funcoes import *
 ###  digite qual grafo quer ler; as opçções são 1,2,3,4,5
 
 
-url_path =opcoes(5) ### escolhe qual datecenter vai puxa o grafo
+url_path =opcoes(4) ### escolhe qual datecenter vai puxa o grafo
 
 
 df = pd.read_csv(url_path , sep ='\t',names=["Grafo2"])
@@ -41,13 +41,14 @@ G.add_nodes_from(V)
 G.add_weighted_edges_from(A)
 
 
-
 ##3 retorna aresta positivos
 e_positivo=([(u, v,d) for (u, v, d) in G.edges(data=True) if float(d["weight"]) > 0.0])
+#print(e_positivo)
 ### retorna aresta negativas
 e_negativo=([(u, v,d) for (u, v, d) in G.edges(data=True) if float(d["weight"]) < 0.0])    
 
+if e_negativo==[]:
+    print("Sem pesos negativos")
 ### retorna a lista do menor caminho
 dijkstra_caminho(G,V)
  
-

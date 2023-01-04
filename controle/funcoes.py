@@ -57,11 +57,67 @@ def Criar_Vertice_Aresta(ll):
 
 
 def dijkstra_caminho(G,V):
-    print(nx.dijkstra_path(G,'1','10',weight='weight')) 
+    print(nx.dijkstra_path(G,'1','10',weight='weight'))
+    print("custo para ir do Vertice 1 ao vertice 10 e de",nx.dijkstra_path_length(G,'1','10'))
+ 
     print(nx.dijkstra_path(G,'1','100',weight='weight'))
-    
+    print("custo para ir do Vertice 1 ao vertice 100 e de",nx.dijkstra_path_length(G,'1','100'))
+
+
  
     if len(V)>1000:
-        print(nx.dijkstra_path(G,'1','1000',weight='weight')) 
+        print(nx.dijkstra_path(G,'1','1000',weight='weight'))
+        print("custo para ir do Vertice 1 ao vertice 10 e de",nx.dijkstra_path_length(G,'1','1000'))
+ 
         if len(V)> 10000:
             print(nx.dijkstra_path(G,'1','10000',weight='weight')) 
+            print("custo para ir do Vertice 1 ao vertice 10000 e de",nx.dijkstra_path_length(G,'1','10000'))
+
+
+
+
+#################
+
+def menor_Vizinho(e_posi,objetivo,destino):
+    objetivo=str(objetivo)
+    destino=str(destino)
+    l_aux=[]
+    menor=5
+    for i in range(len(e_posi)):
+        if objetivo in e_posi[i]:
+            l_aux.append(e_posi[i])
+    
+    for k in range(len(l_aux)):
+        if menor > l_aux[k][2]:
+            menor = l_aux[k][2]
+            indice=k
+        menor_v=l_aux[indice]
+        
+        if menor_v[0]!=objetivo:
+            menor_Vizinho(l_aux,menor_v[1],destino)
+        else :
+            menor_Vizinho(l_aux,menor_v[0],destino)
+    
+    return menor_v
+        
+def  meu_dijkstra(A,objetivo,destino):
+    objetivo=str(objetivo)
+    Vizinhos_percorridos=[]
+    i=0
+    while True:
+        m=menor_Vizinho(A,objetivo,destino)
+        Vizinhos_percorridos.append(m)
+        if objetivo!=m[0] :
+            objetivo=m[0]
+        else :
+            objetivo=m[1]
+
+        if objetivo==destino:
+            print(objetivo,destino)
+            break
+       
+        if i >10:
+            break
+        i +=1
+    
+    print(Vizinhos_percorridos)
